@@ -1,6 +1,6 @@
-package course.jchw6.services;
+package course.jchw6.service;
 
-import course.jchw6.models.Employee;
+import course.jchw6.model.Employee;
 
 import java.util.List;
 

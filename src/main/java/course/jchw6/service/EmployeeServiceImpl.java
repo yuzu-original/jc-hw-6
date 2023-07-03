@@ -1,9 +1,9 @@
-package course.jchw6.services;
+package course.jchw6.service;
 
-import course.jchw6.exceptions.EmployeeAlreadyAddedException;
-import course.jchw6.exceptions.EmployeeNotFoundException;
-import course.jchw6.exceptions.EmployeeStorageIsFullException;
-import course.jchw6.models.Employee;
+import course.jchw6.exception.EmployeeAlreadyAddedException;
+import course.jchw6.exception.EmployeeNotFoundException;
+import course.jchw6.exception.EmployeeStorageIsFullException;
+import course.jchw6.model.Employee;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package course.jchw6.models;
+package course.jchw6.model;
 
 import java.util.Objects;
 

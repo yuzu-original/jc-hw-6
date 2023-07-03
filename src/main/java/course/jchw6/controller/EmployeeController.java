@@ -1,13 +1,11 @@
-package course.jchw6.controllers;
+package course.jchw6.controller;
 
-import course.jchw6.models.Employee;
-import course.jchw6.services.EmployeeService;
-import org.springframework.http.HttpStatus;
+import course.jchw6.model.Employee;
+import course.jchw6.service.EmployeeService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
