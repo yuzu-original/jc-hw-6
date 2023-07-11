@@ -7,21 +7,23 @@ import course.jchw6.model.Employee;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private final List<Employee> employees;
+    private final Map<String, Employee> employees;
     private final int maxCount;
 
     public EmployeeServiceImpl() {
-        employees = new ArrayList<>();
+        employees = new HashMap<>();
         maxCount = 3;
     }
 
 
     @Override
-    public List<Employee> getAll() {
+    public Map<String, Employee> getAll() {
         return employees;
     }
 
@@ -31,20 +33,22 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new EmployeeStorageIsFullException();
         }
 
+        String key = getKeyString(firstName, lastName);
         Employee employee = new Employee(firstName, lastName);
 
-        if (employees.contains(employee)) {
+
+        if (employees.containsKey(key)) {
             throw new EmployeeAlreadyAddedException();
         }
 
-        employees.add(employee);
+        employees.put(key, employee);
         return employee;
     }
 
     @Override
     public Employee remove(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (!employees.remove(employee)) {
+        Employee employee = employees.remove(getKeyString(firstName, lastName));
+        if (employee == null) {
             throw new EmployeeNotFoundException();
         }
         return employee;
@@ -52,10 +56,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee find(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (!employees.contains(employee)) {
+        Employee employee = employees.get(getKeyString(firstName, lastName));
+        if (employee == null) {
             throw new EmployeeNotFoundException();
         }
         return employee;
+    }
+
+    private String getKeyString(String firstName, String lastName) {
+        return firstName + " " + lastName;
     }
 }
