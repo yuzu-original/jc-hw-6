@@ -6,9 +6,7 @@ import course.jchw6.exception.EmployeeStorageIsFullException;
 import course.jchw6.model.Employee;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -28,13 +26,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee add(String firstName, String lastName) {
+    public Employee add(String firstName, String lastName, int department, int salary) {
         if (employees.size() == maxCount) {
             throw new EmployeeStorageIsFullException();
         }
 
         String key = getKeyString(firstName, lastName);
-        Employee employee = new Employee(firstName, lastName);
+        Employee employee = new Employee(firstName, lastName, department, salary);
 
 
         if (employees.containsKey(key)) {
