@@ -64,13 +64,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public void checkFirstName(String firstName) {
-        if (isNameBad(firstName)) {
+        if (!StringUtils.isAlpha(firstName)) {
             throw new BadEmployeeFirstName();
         }
     }
 
     public void checkLastName(String lastName) {
-        if (isNameBad(lastName)) {
+        if (!StringUtils.isAlpha(lastName)) {
             throw new BadEmployeeLastName();
         }
     }
@@ -79,7 +79,4 @@ public class EmployeeServiceImpl implements EmployeeService {
         return firstName + " " + lastName;
     }
 
-    private boolean isNameBad(String name) {
-        return !StringUtils.isAlpha(name) || !StringUtils.isAllUpperCase(name.substring(0, 1)) || !StringUtils.isAllLowerCase(name.substring(1));
-    }
 }
