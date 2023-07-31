@@ -1,9 +1,8 @@
 package course.jchw6.service;
 
-import course.jchw6.exception.EmployeeAlreadyAddedException;
-import course.jchw6.exception.EmployeeNotFoundException;
-import course.jchw6.exception.EmployeeStorageIsFullException;
+import course.jchw6.exception.*;
 import course.jchw6.model.Employee;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -27,6 +26,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee add(String firstName, String lastName, int department, int salary) {
+        checkFirstName(firstName);
+        checkLastName(lastName);
+
         if (employees.size() == maxCount) {
             throw new EmployeeStorageIsFullException();
         }
@@ -61,7 +63,23 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee;
     }
 
+    public void checkFirstName(String firstName) {
+        if (isNameBad(firstName)) {
+            throw new BadEmployeeFirstName();
+        }
+    }
+
+    public void checkLastName(String lastName) {
+        if (isNameBad(lastName)) {
+            throw new BadEmployeeLastName();
+        }
+    }
+
     private String getKeyString(String firstName, String lastName) {
         return firstName + " " + lastName;
+    }
+
+    private boolean isNameBad(String name) {
+        return !StringUtils.isAlpha(name) || !StringUtils.isAllUpperCase(name.substring(0, 1)) || !StringUtils.isAllLowerCase(name.substring(1));
     }
 }
