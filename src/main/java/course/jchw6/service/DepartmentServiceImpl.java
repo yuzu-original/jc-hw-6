@@ -14,20 +14,31 @@ public class DepartmentServiceImpl implements DepartmentService {
         this.employeeService = employeeService;
     }
 
+
     @Override
-    public Employee getEmployeeWithMinSalary(int department) {
+    public int getMinSalary(int department) {
         return employeeService.getAll().values().stream()
                 .filter(e -> e.getDepartment() == department)
-                .min(Comparator.comparingInt(Employee::getSalary))
-                .orElse(null);
+                .mapToInt(Employee::getSalary)
+                .min()
+                .orElse(0);
     }
 
     @Override
-    public Employee getEmployeeWithMaxSalary(int department) {
+    public int getMaxSalary(int department) {
         return employeeService.getAll().values().stream()
                 .filter(e -> e.getDepartment() == department)
-                .max(Comparator.comparingInt(Employee::getSalary))
-                .orElse(null);
+                .mapToInt(Employee::getSalary)
+                .max()
+                .orElse(0);
+    }
+
+    @Override
+    public int getTotalSalary(int department) {
+        return employeeService.getAll().values().stream()
+                .filter(e -> e.getDepartment() == department)
+                .mapToInt(Employee::getSalary)
+                .sum();
     }
 
     @Override
