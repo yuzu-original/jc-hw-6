@@ -18,6 +18,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         maxCount = 3;
     }
 
+    public int getMaxCount() {
+        return maxCount;
+    }
 
     @Override
     public Map<String, Employee> getAll() {
